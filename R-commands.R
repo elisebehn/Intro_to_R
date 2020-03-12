@@ -39,4 +39,26 @@ filter(gapminder, year>=1997)
 
 
 filter(gapminder, lifeExp >80)
-filter(gapminder,continent == "Europe")
+eurpoe <- filter(gapminder,continent == "Europe")
+
+#to look at whole data frame:
+
+view(gapminder)
+
+#to View you function
+view(filter(gapminder, year>=1997))
+
+
+#multiple filters starts with the first (,& AND)  (| OR) 
+filter(gapminder, country=="Australia", year >=1997)
+filter(gapminder, country=="Australia"|year >=1997)
+
+#below function will not work as it is looking for both countries,
+filter(gapminder, country== "Australia", country == "New Zealand")
+
+# to fix this use %in%
+
+filter(gapminder, country %in% c("Australia","New Zealand", "India"))
+
+filter(gapminder, continent %in% c("Africa","asia", "Europe"))
+       
