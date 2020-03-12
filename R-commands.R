@@ -82,5 +82,18 @@ index_numbers <- 1:1704
 # to number the rows in your data set
 mutate(gapminder, row_numn = index_numbers)
 
-#to combined multiple new columns
+#to combined multiple new columns using mutate
 mutate(gapminder, gdp = gdpPercap * pop, log(pop))
+
+
+mutate(
+  gapminder,
+  gdp = gdpPercap * pop,
+  log_gdp =(gdp)
+)
+
+
+mutate(gapminder, life_exp_days = lifeExp*365)
+mutate(gapminder, gdp = gdpPercap * pop, GDP_BILL = gdp / 1E9)
+
+mutate(gapminder, life_exp_days = lifeExp*365, gdp_bil = gdpPercap * pop / 1e9)
