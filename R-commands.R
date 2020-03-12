@@ -61,4 +61,26 @@ filter(gapminder, country== "Australia", country == "New Zealand")
 filter(gapminder, country %in% c("Australia","New Zealand", "India"))
 
 filter(gapminder, continent %in% c("Africa","asia", "Europe"))
-       
+
+#mutate to get a new column
+mutate(gapminder,gdp = gdpPercap * pop)
+mutate(gapminder, popM = pop/1000000)
+
+# log- logerithem function the base of 10
+mutate(gapminder, log(pop))
+
+
+#to get an abbreviation of a column use substring
+mutate(gapminder, country_abb = str_sub(country, start =1, end = 4))
+
+
+#str_length - to get the number of letters in the cell or name
+mutate(gapminder, country_name_length = str_length(country))
+
+index_numbers <- 1:1704 
+
+# to number the rows in your data set
+mutate(gapminder, row_numn = index_numbers)
+
+#to combined multiple new columns
+mutate(gapminder, gdp = gdpPercap * pop, log(pop))
