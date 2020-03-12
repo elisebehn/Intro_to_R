@@ -1,52 +1,17 @@
-1+1
-X <- 6
 
-X
+library(tidyverse)
 
-X <- 5+7
-X
-
-X <- X+2
-X
-
-Y <- X *2
-Y
-
-X <- 2
-X
-Y
-NA
-
-x <- NA
-
-2+X
-intro <- "Hi!"
-
-3==3
-3+3
-3=3
-
-Y == 3
-Y==3
-
-4!= 3
-
-5>= Y
+gapminder <-  read_csv("data/gapfinder.csv")
 
 
+summary(gapminder)
+my_life_exp <- gapminder$lifeExp
+
+#to choose certain columns
+select(gapminder,year, country, pop)
+select(gapminder, 3,1,5)
+
+#TO DROP OFF CERTAIN COLUMNS
+select(gapminder,-pop, -year)
 
 
-
-
-mass <- 47.5
-
-age <- 122
-
-mass <- mass*2.3
-
-age <- age - 20
-
-
-mass >= age
-
-some_numbers <- seq(1, 10)
