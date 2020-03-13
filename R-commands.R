@@ -97,3 +97,135 @@ mutate(gapminder, life_exp_days = lifeExp*365)
 mutate(gapminder, gdp = gdpPercap * pop, GDP_BILL = gdp / 1E9)
 
 mutate(gapminder, life_exp_days = lifeExp*365, gdp_bil = gdpPercap * pop / 1e9)
+
+
+#grouping Select and FIlter commands ****
+aus_cut <- select(gapminder, country, year, pop,)
+aust_data <- filter(aus_cut, country == "Australia")
+
+#aust_data is now only australia with country, year and Pop***
+
+#nesting commands - Hot dog
+
+aus_dataagain <- filter(select(gapminder, 1,3,5),country == "Australia")
+
+#using pipe to next commands - keyboard shortcut(ctrl shift M)
+
+aus_cut <- select(gapminder, country, year, pop) %>% 
+  filter(aus_cut, country == "Australia")
+
+
+aus_cut <- gapminder %>% select(country, year, pop) %>% filter(country == "Australia")
+
+#below to arguments are the same
+mutate(gapminder, gdp = gdpPercap *pop)
+
+
+
+gapminder %>% mutate(gdp = gdpPercap*pop) %>% select(gdp)
+
+
+#USING PIPE FILTER
+aus_cut <- gapminder %>% select(country, year, pop) %>% filter(country == "Australia")
+
+#best way to use pipe command 
+final_cut <- gapminder %>% 
+  select(country, year, pop,gdpPercap) %>%
+  filter(country == "Australia") %>% 
+  rename(gdp_per_cap = gdpPercap)
+
+view(final_cut)
+
+mutate(gapminder, year_pop = year)
+
+
+#summarise function
+
+summarise(gapminder, mean_life_exp = mean(lifeExp))
+
+summarise(gapminder, 
+          mean_life_exp = mean(lifeExp),
+          sd_life_exp = sd(lifeExp),
+          mean_gdp_per_cap = mean(gdpPercap),
+          max_gdp_per_cap = max(gdpPercap))
+
+
+summarise(gapminder, mean_pop = mean(pop),
+          med_pop = median(pop))
+
+
+#grouping fields and then summarising the data
+
+gapminder_by_country <- group_by(gapminder,country)
+summarise(gapminder_by_country,mean_pop = mean(pop))
+
+gapminder %>% 
+  group_by(continent) %>% 
+  summarise(mean_life = mean(lifeExp))
+
+summarise(gapminder_by_country, mean_life_exp = mean(lifeExp))
+
+
+Cont_by_pop <- gapminder %>% 
+  group_by(continent) %>% 
+  summarise(mean_pop = mean(pop), med_pop = median(pop))  
+            
+view(Cont_by_pop)
+
+gapminder_by_comp <- group_by(gapminder,continent)
+summarise(gapminder_by_comp,
+          mean_pop = mean(pop),
+          mead_pop = median(pop))
+
+
+#Arrange 
+arrange(gapminder,gdpPercap)
+
+arrange(gapminder,desc(gdpPercap))
+
+
+arrange(gapminder,lifeExp)
+
+#Group and sort 
+
+group_by_Count <- group_by(gapminder, country)
+summarise(group_by_Count,mean_life_exp = mean(lifeExp)) %>% 
+          arrange(mean_life_exp)
+
+ #descending order 
+group_by_Count <- group_by(gapminder, country)
+summarise(group_by_Count,mean_life_exp = mean(lifeExp)) %>% 
+  arrange(desc(mean_life_exp))
+
+#accending order
+summarise_life_exp <- summarise(gapminder_by_country,mean_life_exp = mean(lifeExp))
+arrange(summarise_life_exp,mean_life_exp)
+
+#descending order  
+summarise_life_exp <- summarise(gapminder_by_country,mean_life_exp = mean(lifeExp))
+arrange(summarise_life_exp,desc(mean_life_exp))
+
+#counting the number of observations
+
+n()
+
+summarise(gapminder,num_rows = n())
+
+summarise(gapminder_by_country, num_rows = n())
+
+summarise(gapminder_by_country, se_pop = sd(pop)/sqrt(n()))
+
+#summarise the number of row for each continent sort lowest to highest
+
+group_by_cont <- group_by(gapminder,continent)
+summarise(group_by_cont, num_row = n()) %>% 
+  arrange(num_row)
+
+
+#another way to answer above question
+
+gapminder %>% 
+  group_by(continent) %>% 
+  summarise(num_row = n()) %>% 
+              arrange(num_row)
+            
