@@ -290,3 +290,29 @@ sex_ratio
 
 full_join(gapminder,sex_ratio)
 left_join(gapminder,sex_ratio)
+
+####GATHER AND SPREADDDD
+cows <- tibble(id = c(1,2,3),weight1 = c(207,208,209), weight2 = c(300, 309,401))
+cows
+
+gather(cows, key = weight_type, value = weight, weight1,weight2)
+
+cows_long <- gather(cows, key = weight_type, value = weight, -id)
+cows_long
+
+spread(cows_long, key = weight_type, value = weight)
+
+#get wide  gapminder data
+
+gapminder_wide <- read_csv("data/gapminder_wide.csv")
+gapminder_wide
+
+#move the rows into columns
+gap_long <- gather(gapminder_wide,key = orig_names, value = amount, -continent,-country)
+gap_long
+
+gap_separated <- separate(gap_long, orig_names, into = c("measure","year"), sep = "_")
+gap_separated
+
+#move the columns into rows
+gap_final <- spread(gap_separated, key = measure, value =amount)
