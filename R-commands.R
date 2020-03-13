@@ -228,4 +228,65 @@ gapminder %>%
   group_by(continent) %>% 
   summarise(num_row = n()) %>% 
               arrange(num_row)
-            
+
+
+
+gapminder %>% 
+  group_by(continent)
+
+
+
+
+
+
+
+
+gapminder %>%
+  group_by(year)
+ 
+
+
+
+#COMBINING DATA**** MUST READ DATA to use in R
+
+
+gapminder_2012 <- read_csv("data/gapminder_2012.csv")
+
+gapminder
+
+combined_gapminder <- bind_rows(gapminder, gapminder_2012)
+
+#RENAME THE HEADINGS
+
+rename_2012 <-  rename(gapminder_2012, population=pop)
+
+combined_gapminder_again <- bind_rows(gapminder, rename_2012)          
+
+mismatched <- bind_rows(gapminder, rename_2012)
+head (mismatched)
+tail(mismatched)
+
+
+df1 <- tibble(sample = c(1, 2, 3), measure1 = c(4.2, 5.3, 6.1))
+
+df1 <- tibble(sample = c(1, 2, 3), measure1 = c(4.2, 5.3, 6.1))
+df2 <- tibble(sample = c(1, 3, 4), measure2 = c(7.8, 6.4, 9.0))
+
+inner_join(df1,df2)
+full_join(df1,df2)
+left_join(df1,df2)
+
+#what is column headings do not match - to change the heading name***
+
+df3 <- tibble(ID = c(1,2,4),measure3 = c (4.7,3.5, 9.3))
+
+df3
+full_join(df1,df3)
+full_join(df1,df3, by = c("sample" = "ID"))
+
+sex_ratio <- read_csv("data/gapminder_sex_ratios.csv")
+
+sex_ratio
+
+full_join(gapminder,sex_ratio)
+left_join(gapminder,sex_ratio)
